@@ -4,11 +4,10 @@ void setup() {
 }
 
 void blinkTime() {
-  // millis() gives you how many milliseconds since the arduino started running
-  int seconds = millis() / 1000;
+  int interval = millis() / 100;
   // % is the modulus symbol it gives you the remainder when you divide by a number
   // if you % 2 then even numbers return zero and odd numbers return 1
-  if (seconds % 2 == 0) {
+  if (interval % 2 == 0) {
     // turn the LED on
     digitalWrite(LED_BUILTIN, HIGH);
   } else {
