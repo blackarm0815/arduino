@@ -2,7 +2,6 @@ void setup() {
   // put your setup code here, to run once:
   Serial.begin(9600);
 }
-
 int calculateUpDown() {
   // use modulus to get a value that goes from 0 - 9999
   int zeroToMax = millis() % 10000;
