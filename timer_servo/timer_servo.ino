@@ -12,21 +12,23 @@ void buttonCheck() {
   } 
 }
 
-int calcServoPosition() {
-  if (animationTimer == 0) {
-    return 0;
-  }
-  if (animationTimer > 0 && animationTimer < 400) {
+void incrementAnimation() {
+  if (animationTimer > 0) {
     animationTimer += 1;
-    return map(animationTimer, 0, 400, 0, 180);
-  }
-  if (animationTimer >= 400 && animationTimer < 800) {
-    animationTimer += 1;
-    return map(animationTimer, 400, 800, 180, 0);
   }
   if (animationTimer == 800) {
     animationTimer = 0;
-    return 0;
+  }
+}
+
+int calcServoPosition() {
+  // 0 - 399
+  if (animationTimer >= 0 && animationTimer < 400) {
+    return map(animationTimer, 0, 400, 0, 180);
+  }
+  // 400 - 799
+  if (animationTimer >= 400 && animationTimer < 800) {
+    return map(animationTimer, 400, 800, 180, 0);
   }
 }
 
@@ -39,5 +41,9 @@ void showValues() {
 void loop() {
   buttonCheck();
   servoPosition = calcServoPosition();
+  incrementAnimation();
   showValues();
 }
+
+
+
