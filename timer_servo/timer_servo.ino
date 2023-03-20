@@ -58,7 +58,3 @@ void loop() {
   animationTime = calcAnimationTime();
   showValues();
 }
-
-
-
-
