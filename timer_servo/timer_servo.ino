@@ -6,12 +6,6 @@ void setup() {
   Serial.begin(9600);
 }
 
-void buttonCheck() {
-  if (digitalRead(2) == HIGH) {
-    animationTimer = 1;
-  } 
-}
-
 void incrementAnimation() {
   if (animationTimer > 0) {
     animationTimer += 1;
@@ -19,6 +13,12 @@ void incrementAnimation() {
   if (animationTimer == 800) {
     animationTimer = 0;
   }
+}
+
+void showValues() {
+  char buffer[10];
+  sprintf(buffer, "%03d %03d\n", animationTimer, servoPosition);
+  Serial.write(buffer);
 }
 
 int calcServoPosition() {
@@ -32,17 +32,20 @@ int calcServoPosition() {
   }
 }
 
-void showValues() {
-  char buffer[10];
-  sprintf(buffer, "%03d %03d\n", animationTimer, servoPosition);
-  Serial.write(buffer);
+void startAnimationButton() {
+  if (digitalRead(2) == HIGH) {
+    animationTimer = 1;
+  } 
+}
+void animation(){
+  startAnimationButton();
+  servoPosition = calcServoPosition();
+  showValues();  
+  incrementAnimation();
 }
 
 void loop() {
-  buttonCheck();
-  servoPosition = calcServoPosition();
-  incrementAnimation();
-  showValues();
+  animation();
 }
 
 
