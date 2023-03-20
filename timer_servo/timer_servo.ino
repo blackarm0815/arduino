@@ -37,6 +37,7 @@ void startAnimationButton() {
     animationTimer = 1;
   } 
 }
+
 void animation(){
   startAnimationButton();
   servoPosition = calcServoPosition();
