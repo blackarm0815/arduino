@@ -1,7 +1,10 @@
+#include <Servo.h>
+Servo servoAlpha;
 int animationTimer = 0;
 int servoPosition = 0;
 
 void setup() {
+  servoAlpha.attach(10);
   pinMode(2, INPUT);
   Serial.begin(9600);
 }
@@ -21,7 +24,7 @@ void showValues() {
   Serial.write(buffer);
 }
 
-int calcServoPosition() {
+int calcServoAlpha() {
   // 0 - 399
   if (animationTimer >= 0 && animationTimer < 400) {
     return map(animationTimer, 0, 400, 0, 180);
@@ -40,7 +43,7 @@ void startAnimationButton() {
 
 void animation(){
   startAnimationButton();
-  servoPosition = calcServoPosition();
+  servoAlpha.write(calcServoAlpha());
   showValues();  
   incrementAnimation();
 }
