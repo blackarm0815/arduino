@@ -1,11 +1,11 @@
 #include <Servo.h>
-Servo servoAlpha;
-Servo servoBeta;
 int backAnimation = 0;
 int buttonCount = 0;
 int forwardAnimation = 0;
 int servoPositionAlpha = 0;
 int servoPositionBeta = 0;
+Servo servoAlpha;
+Servo servoBeta;
 
 void setup() {
   servoAlpha.attach(10);
