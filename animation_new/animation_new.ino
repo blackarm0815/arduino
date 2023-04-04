@@ -1,9 +1,9 @@
 // animation states
 //
-// 0 at the start of the forward animation. servo deactivated.
-// 1 when the forward animation is in progress.
-// 2 at the start of the backwards animation. servo deactivated.
-// 3 when the backwards animation is in progress
+// 0 starting position.
+// 1 forward animation.
+// 2 stopped at end of forward animation.
+// 3 backwards animation.
 
 #include <Servo.h>
 Servo servoAlpha;
@@ -18,13 +18,11 @@ bool wasButtonLow = true;
 void setup() {
   servoAlpha.attach(10);
   servoBeta.attach(11);
-  servoAlpha.write(0);
-  servoBeta.write(0);
-  servoAlpha.detach();
-  servoBeta.detach();
   pinMode(2, INPUT);
   Serial.begin(9600);
 }
+
+// forward
 
 void incrementForwardAnimation() {
   if (animationCycleForward < 100) {
@@ -32,8 +30,6 @@ void incrementForwardAnimation() {
   }
   else {
     animationStage = 2;
-    servoAlpha.detach();
-    servoBeta.detach();
   }
 }
 
@@ -55,14 +51,14 @@ int betaForward() {
   }
 }
 
+// backward
+
 void incrementBackAnimation() {
   if (animationCycleBackward < 100) {
     animationCycleBackward += 1;
   }
   else {
     animationStage = 0;
-    servoAlpha.detach();
-    servoBeta.detach();
   }
 }
 
@@ -83,6 +79,8 @@ int betaBack() {
     return 0;
   }
 }
+
+// serial monitor
 
 void showValues() {
   char buffer[200];
@@ -120,22 +118,26 @@ void checkAnimationButton() {
 
 void animation(){
   checkAnimationButton();
+  // start position
+  if (animationStage == 0) {
+    servoPositionAlpha = 0;
+    servoPositionBeta = 0;
+  }
   // forward animation
   if (animationStage == 1) {
     incrementForwardAnimation();
     servoPositionAlpha = alphaForward();
     servoPositionBeta = betaForward();
-    servoAlpha.write(servoPositionAlpha);
-    servoBeta.write(servoPositionBeta);
   }
   // backward animation
   if (animationStage == 3) {
     incrementBackAnimation();
     servoPositionAlpha = alphaBack();
     servoPositionBeta = betaBack();
-    servoAlpha.write(servoPositionAlpha);
-    servoBeta.write(servoPositionBeta);
   }
+  // move servos
+  servoAlpha.write(servoPositionAlpha);
+  servoBeta.write(servoPositionBeta);
   showValues();
 }
 
