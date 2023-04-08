@@ -1,6 +1,3 @@
-// animation states
-//
-
 // the servo library
 #include <Servo.h>
 // create the servo objects
@@ -24,7 +21,7 @@ int servoPositionBeta = 0;
 // an unsigned int is used because it has a maximum value of 65,535
 // unlike a regular int that has a range of -32,768 to 32,767
 unsigned int cycleMax = 50000;
-//
+
 void setup() {
   // activate the servos
   servoAlpha.attach(10);
