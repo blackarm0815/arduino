@@ -8,24 +8,32 @@
 #include <Servo.h>
 Servo servoAlpha;
 Servo servoBeta;
+
+bool wasButtonLow = true;
+
+int animationStage = 0;
+
 int animationCycleBackward = 0;
 int animationCycleForward = 0;
-int animationStage = 0;
+
 int servoPositionAlpha = 0;
 int servoPositionBeta = 0;
-bool wasButtonLow = true;
+
+int cycleMax = 32000;
 
 void setup() {
   servoAlpha.attach(10);
   servoBeta.attach(11);
   pinMode(2, INPUT);
   Serial.begin(9600);
+  servoAlpha.write(55);
+  servoBeta.write(55);
 }
 
 // forward
 
 void incrementForwardAnimation() {
-  if (animationCycleForward < 100) {
+  if (animationCycleForward < cycleMax) {
     animationCycleForward += 1;
   }
   else {
@@ -34,27 +42,42 @@ void incrementForwardAnimation() {
 }
 
 int alphaForward() {
-  if (animationCycleForward >= 0 && animationCycleForward < 50) {
-    return map(animationCycleForward, 0, 50, 0, 180);
+  if (animationCycleForward >= 0 && animationCycleForward < (cycleMax * 0.25)){
+    return 55;  
   }
-  if (animationCycleForward >= 50 && animationCycleForward <= 100) {
+  if (animationCycleForward >= (cycleMax * 0.25) && animationCycleForward < (cycleMax * 0.5)){
+    return map(animationCycleForward, (cycleMax * 0.25), (cycleMax * 0.5), 55, 180);
+  }
+  if (animationCycleForward >= (cycleMax * 0.5) && animationCycleForward < (cycleMax * 0.75)){
     return 180;
+  }
+  if (animationCycleForward >= (cycleMax * 0.75) && animationCycleForward <= cycleMax) {
+    return map(animationCycleForward, (cycleMax * 0.75), cycleMax, 180, 145);  
   }
 }
 
 int betaForward() {
-  if (animationCycleForward >= 0 && animationCycleForward < 50) {
-    return 0;
+  if (animationCycleForward >= 0 && animationCycleForward < (cycleMax * 0.25)) {
+    return map(animationCycleForward, 0, (cycleMax * 0.25), 55, 20);
   }
-  if (animationCycleForward >= 50 && animationCycleForward <= 100) {
-    return map(animationCycleForward, 50, 100, 0, 90);
+  
+  if (animationCycleForward >= (cycleMax * 0.25) && animationCycleForward < (cycleMax * 0.5)) {
+    return 20;
+  }
+  
+  if (animationCycleForward >= (cycleMax * 0.5) && animationCycleForward < (cycleMax * 0.75)) {
+    return map(animationCycleForward, (cycleMax * 0.5), (cycleMax * 0.75), 20, 145);
+  }
+
+  if (animationCycleForward >= (cycleMax * 0.75) && animationCycleForward <= cycleMax) {
+    return 145;
   }
 }
 
 // backward
 
 void incrementBackAnimation() {
-  if (animationCycleBackward < 100) {
+  if (animationCycleBackward < cycleMax) {
     animationCycleBackward += 1;
   }
   else {
@@ -63,29 +86,47 @@ void incrementBackAnimation() {
 }
 
 int alphaBack() {
-  if (animationCycleBackward >= 0 && animationCycleBackward < 50) {
+  if (animationCycleBackward >= 0 && animationCycleBackward < (cycleMax * 0.25)) {
+    return map(animationCycleBackward, 0, (cycleMax * 0.25), 145, 180); 
+  }
+
+  if (animationCycleBackward >= (cycleMax * 0.25) && animationCycleBackward < (cycleMax * 0.5)) {
     return 180;
   }
-  if (animationCycleBackward >= 50 && animationCycleBackward <= 100) {
-    return map(animationCycleBackward, 50, 100, 180, 0);
+
+  if (animationCycleBackward >= (cycleMax * 0.5) && animationCycleBackward <= (cycleMax * 0.75)) {
+    return map(animationCycleBackward, (cycleMax * 0.5), (cycleMax * 0.75), 180, 55);
+  }
+
+  if (animationCycleBackward >= (cycleMax * 0.75) && animationCycleBackward <= cycleMax) {
+    return 55;
   }
 }
 
 int betaBack() {
-  if (animationCycleBackward >= 0 && animationCycleBackward < 50) {
-    return map(animationCycleBackward, 0, 50, 90, 0);
+  if (animationCycleBackward >= 0 && animationCycleBackward < (cycleMax * 0.25)) {
+    return 145;
   }
-  if (animationCycleBackward >= 50 && animationCycleBackward <= 100) {
-    return 0;
+
+  if (animationCycleBackward >= (cycleMax * 0.25) && animationCycleBackward < (cycleMax * 0.5)) {
+    return map(animationCycleBackward, (cycleMax * 0.25), (cycleMax * 0.5), 145, 20); 
+  }
+
+  if (animationCycleBackward >= (cycleMax * 0.5) && animationCycleBackward <= (cycleMax * 0.75)) {
+    return 20;
+  }
+  if (animationCycleBackward >= (cycleMax * 0.75) && animationCycleBackward <= cycleMax) {
+    return map(animationCycleBackward, (cycleMax * 0.75), cycleMax, 20, 55);
   }
 }
 
 // serial monitor
 
 void showValues() {
-  char buffer[200];
-  sprintf(buffer, "%d %03d %03d %03d %03d\n", animationStage, animationCycleForward, servoPositionAlpha, animationCycleBackward, servoPositionBeta);
-  Serial.write(buffer);
+  //char buffer[200];
+  //sprintf(buffer, " %d   %03d  %03d  %03d  %03d\n", animationStage, animationCycleForward, animationCycleBackward, servoPositionAlpha, servoPositionBeta);
+  // sprintf(buffer, " %d  animationCycleForward %03d servoPositionAlpha %03d animationCycleBackward %03d servoPositionBeta %03d\n", animationStage, animationCycleForward, servoPositionAlpha, animationCycleBackward, servoPositionBeta);
+  //Serial.write(buffer);
 }
 
 void buttonPressed() {
@@ -120,8 +161,8 @@ void animation(){
   checkAnimationButton();
   // start position
   if (animationStage == 0) {
-    servoPositionAlpha = 0;
-    servoPositionBeta = 0;
+    servoPositionAlpha = 55;
+    servoPositionBeta = 55;
   }
   // forward animation
   if (animationStage == 1) {
