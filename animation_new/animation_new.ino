@@ -93,15 +93,15 @@ void buttonPressed() {
   if (animationStage == 0) {
     animationStage = 1;
     animationCycleForward = 0;
-    servoAlpha.attach(10);
-    servoBeta.attach(11);
+    // servoAlpha.attach(10);
+    // servoBeta.attach(11);
   }
   // trigger the backward animation
   if (animationStage == 2) {
     animationStage = 3;
     animationCycleBackward = 0;
-    servoAlpha.attach(10);
-    servoBeta.attach(11);
+    // servoAlpha.attach(10);
+    // servoBeta.attach(11);
   }
   // if the button is pressed while an animation is in progress (1 or 3) it is ignored
 }
