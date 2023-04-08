@@ -42,34 +42,34 @@ void incrementForwardAnimation() {
 }
 
 int alphaForward() {
-  if (animationCycleForward >= 0 && animationCycleForward < (cycleMax * 0.25)){
+  if (animationCycleForward >= 0 && animationCycleForward < (cycleMax * 0.2)){
     return 55;  
   }
-  if (animationCycleForward >= (cycleMax * 0.25) && animationCycleForward < (cycleMax * 0.5)){
-    return map(animationCycleForward, (cycleMax * 0.25), (cycleMax * 0.5), 55, 180);
+  if (animationCycleForward >= (cycleMax * 0.2) && animationCycleForward < (cycleMax * 0.5)){
+    return map(animationCycleForward, (cycleMax * 0.2), (cycleMax * 0.5), 55, 180);
   }
-  if (animationCycleForward >= (cycleMax * 0.5) && animationCycleForward < (cycleMax * 0.75)){
+  if (animationCycleForward >= (cycleMax * 0.5) && animationCycleForward < (cycleMax * 0.8)){
     return 180;
   }
-  if (animationCycleForward >= (cycleMax * 0.75) && animationCycleForward <= cycleMax) {
-    return map(animationCycleForward, (cycleMax * 0.75), cycleMax, 180, 145);  
+  if (animationCycleForward >= (cycleMax * 0.8) && animationCycleForward <= cycleMax) {
+    return map(animationCycleForward, (cycleMax * 0.8), cycleMax, 180, 145);  
   }
 }
 
 int betaForward() {
-  if (animationCycleForward >= 0 && animationCycleForward < (cycleMax * 0.25)) {
-    return map(animationCycleForward, 0, (cycleMax * 0.25), 55, 20);
+  if (animationCycleForward >= 0 && animationCycleForward < (cycleMax * 0.2)) {
+    return map(animationCycleForward, 0, (cycleMax * 0.2), 55, 20);
   }
   
-  if (animationCycleForward >= (cycleMax * 0.25) && animationCycleForward < (cycleMax * 0.5)) {
+  if (animationCycleForward >= (cycleMax * 0.2) && animationCycleForward < (cycleMax * 0.5)) {
     return 20;
   }
   
-  if (animationCycleForward >= (cycleMax * 0.5) && animationCycleForward < (cycleMax * 0.75)) {
-    return map(animationCycleForward, (cycleMax * 0.5), (cycleMax * 0.75), 20, 145);
+  if (animationCycleForward >= (cycleMax * 0.5) && animationCycleForward < (cycleMax * 0.8)) {
+    return map(animationCycleForward, (cycleMax * 0.5), (cycleMax * 0.8), 20, 145);
   }
 
-  if (animationCycleForward >= (cycleMax * 0.75) && animationCycleForward <= cycleMax) {
+  if (animationCycleForward >= (cycleMax * 0.8) && animationCycleForward <= cycleMax) {
     return 145;
   }
 }
@@ -86,37 +86,37 @@ void incrementBackAnimation() {
 }
 
 int alphaBack() {
-  if (animationCycleBackward >= 0 && animationCycleBackward < (cycleMax * 0.25)) {
-    return map(animationCycleBackward, 0, (cycleMax * 0.25), 145, 180); 
+  if (animationCycleBackward >= 0 && animationCycleBackward < (cycleMax * 0.2)) {
+    return map(animationCycleBackward, 0, (cycleMax * 0.2), 145, 180); 
   }
 
-  if (animationCycleBackward >= (cycleMax * 0.25) && animationCycleBackward < (cycleMax * 0.5)) {
+  if (animationCycleBackward >= (cycleMax * 0.2) && animationCycleBackward < (cycleMax * 0.5)) {
     return 180;
   }
 
-  if (animationCycleBackward >= (cycleMax * 0.5) && animationCycleBackward <= (cycleMax * 0.75)) {
-    return map(animationCycleBackward, (cycleMax * 0.5), (cycleMax * 0.75), 180, 55);
+  if (animationCycleBackward >= (cycleMax * 0.5) && animationCycleBackward <= (cycleMax * 0.8)) {
+    return map(animationCycleBackward, (cycleMax * 0.5), (cycleMax * 0.8), 180, 55);
   }
 
-  if (animationCycleBackward >= (cycleMax * 0.75) && animationCycleBackward <= cycleMax) {
+  if (animationCycleBackward >= (cycleMax * 0.8) && animationCycleBackward <= cycleMax) {
     return 55;
   }
 }
 
 int betaBack() {
-  if (animationCycleBackward >= 0 && animationCycleBackward < (cycleMax * 0.25)) {
+  if (animationCycleBackward >= 0 && animationCycleBackward < (cycleMax * 0.2)) {
     return 145;
   }
 
-  if (animationCycleBackward >= (cycleMax * 0.25) && animationCycleBackward < (cycleMax * 0.5)) {
-    return map(animationCycleBackward, (cycleMax * 0.25), (cycleMax * 0.5), 145, 20); 
+  if (animationCycleBackward >= (cycleMax * 0.2) && animationCycleBackward < (cycleMax * 0.5)) {
+    return map(animationCycleBackward, (cycleMax * 0.2), (cycleMax * 0.5), 145, 20); 
   }
 
-  if (animationCycleBackward >= (cycleMax * 0.5) && animationCycleBackward <= (cycleMax * 0.75)) {
+  if (animationCycleBackward >= (cycleMax * 0.5) && animationCycleBackward <= (cycleMax * 0.8)) {
     return 20;
   }
-  if (animationCycleBackward >= (cycleMax * 0.75) && animationCycleBackward <= cycleMax) {
-    return map(animationCycleBackward, (cycleMax * 0.75), cycleMax, 20, 55);
+  if (animationCycleBackward >= (cycleMax * 0.8) && animationCycleBackward <= cycleMax) {
+    return map(animationCycleBackward, (cycleMax * 0.8), cycleMax, 20, 55);
   }
 }
 
